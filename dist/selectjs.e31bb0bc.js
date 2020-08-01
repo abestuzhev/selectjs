@@ -134,7 +134,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
 var getTemplate = function getTemplate() {
-  return "\n    <div class=\"select-input\" data-type=\"input\">\n        <span>\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435</span>\n        <i class=\"fa fa-chevron-down\" aria-hidden=\"true\"></i>\n    </div>\n    <div class=\"select-dropdown\">\n        <div class=\"select-dropdown__item\">React</div>                \n        <div class=\"select-dropdown__item\">Angular</div>                \n        <div class=\"select-dropdown__item\">Vue</div>                \n        <div class=\"select-dropdown__item\">Flutter</div>                \n        <div class=\"select-dropdown__item\">Svelte</div>                \n        <div class=\"select-dropdown__item\">React Native</div>              \n        <div class=\"select-dropdown__item\">Dart</div>              \n        <div class=\"select-dropdown__item\">Vanila JS</div>              \n        <div class=\"select-dropdown__item\">Nuxt</div>              \n    </div>\n    ";
+  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var placeholder = arguments.length > 1 ? arguments[1] : undefined;
+  var text = placeholder !== null && placeholder !== void 0 ? placeholder : "Выберите значение";
+  var items = data.map(function (item) {
+    return "<div class=\"select-dropdown__item\" data-type=\"item\" data-id=\"".concat(item.id, "\">").concat(item.value, "</div>       ");
+  });
+  return "\n    <div class=\"select-input\" data-type=\"input\">\n        <span data-type=\"value\">".concat(text, "</span>\n        <i class=\"fa fa-chevron-down\" aria-hidden=\"true\"></i>\n    </div>\n    <div class=\"select-dropdown\">\n            ").concat(items.join(''), "\n    </div>\n    ");
 };
 
 var _render = new WeakSet();
@@ -150,10 +156,13 @@ var Select = /*#__PURE__*/function () {
     _render.add(this);
 
     this.$el = document.querySelector(selector);
+    this.options = options;
 
     _classPrivateMethodGet(this, _render, _render2).call(this);
 
     _classPrivateMethodGet(this, _setup, _setup2).call(this);
+
+    this.selectedId = null;
   }
 
   _createClass(Select, [{
@@ -161,17 +170,24 @@ var Select = /*#__PURE__*/function () {
     value: function clickHandler(event) {
       var eventTarget = event.target.closest('div');
       var type = eventTarget.dataset.type;
-      console.log(eventTarget);
-      console.log(type);
 
       if (type === "input") {
         this.toggle();
+      } else if (type === "item") {
+        var id = eventTarget.dataset.id;
+        this.select(id);
       }
     }
   }, {
     key: "toggle",
     value: function toggle() {
       this.isOpen ? this.close() : this.open();
+    }
+  }, {
+    key: "select",
+    value: function select(id) {
+      this.selectedId = id;
+      this.$value.textContent = this.current.value;
     }
   }, {
     key: "open",
@@ -193,6 +209,15 @@ var Select = /*#__PURE__*/function () {
     get: function get() {
       return this.$el.classList.contains('open');
     }
+  }, {
+    key: "current",
+    get: function get() {
+      var _this = this;
+
+      return this.options.data.find(function (item) {
+        return item.id === _this.selectedId;
+      });
+    }
   }]);
 
   return Select;
@@ -201,15 +226,19 @@ var Select = /*#__PURE__*/function () {
 exports.Select = Select;
 
 var _render2 = function _render2() {
+  var _this$options = this.options,
+      placeholder = _this$options.placeholder,
+      data = _this$options.data;
   this.$el.classList.add('select');
-  this.$el.innerHTML = getTemplate();
+  this.$el.innerHTML = getTemplate(data, placeholder);
+  this.$value = this.$el.querySelector("data-type = 'value'");
 };
 
 var _setup2 = function _setup2() {
   this.clickHandler = this.clickHandler.bind(this);
   this.$el.addEventListener('click', this.clickHandler);
 };
-},{}],"../../../Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{}],"C:/Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -241,7 +270,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"C:/Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -276,20 +305,50 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"select/select.scss":[function(require,module,exports) {
+},{"./bundle-url":"C:/Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"select/select.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
+},{"_css_loader":"C:/Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _select = require("./select/select.js");
 
 require("./select/select.scss");
 
-var select = new _select.Select("#select", {});
-},{"./select/select.js":"select/select.js","./select/select.scss":"select/select.scss"}],"../../../Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var select = new _select.Select("#select", {
+  placeholder: "Выберите пожалуйста текст",
+  data: [{
+    id: "1",
+    value: "React"
+  }, {
+    id: "2",
+    value: "Angular"
+  }, {
+    id: "3",
+    value: "Vue"
+  }, {
+    id: "4",
+    value: "Flutter"
+  }, {
+    id: "5",
+    value: "Svelte"
+  }, {
+    id: "6",
+    value: "React Native"
+  }, {
+    id: "7",
+    value: "Dart"
+  }, {
+    id: "8",
+    value: "Vanilla JS"
+  }, {
+    id: "9",
+    value: "Nuxt"
+  }]
+});
+},{"./select/select.js":"select/select.js","./select/select.scss":"select/select.scss"}],"C:/Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -317,7 +376,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60879" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55474" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -493,5 +552,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
+},{}]},{},["C:/Users/aleks/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
 //# sourceMappingURL=/selectjs.e31bb0bc.js.map
