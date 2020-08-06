@@ -4,6 +4,7 @@ import "./select/select.scss";
 
 const select = new Select("#select", {
     placeholder: "Выберите пожалуйста текст",
+    // selectedId: '2',
     data: [
         {id: "1", value: "React"},
         {id: "2", value: "Angular"},
@@ -14,5 +15,10 @@ const select = new Select("#select", {
         {id: "7", value: "Dart"},
         {id: "8", value: "Vanilla JS"},
         {id: "9", value: "Nuxt"}
-    ]
+    ],
+    onSelect(item){
+        console.log("Select item", item)
+    }
 });
+
+window.s = select;

@@ -28,6 +28,8 @@ body {
   font-size: 16px;
   cursor: pointer;
   position: relative;
+  z-index: 2;
+  background-color: #fff;
 }
 .select-input .fa {
   position: absolute;
@@ -41,22 +43,37 @@ body {
   overflow: hidden;
   overflow-y: scroll;
   position: absolute;
+  z-index: 2;
   top: 100%;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 0 0 12px 12px;
   box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
 }
 .select-dropdown__item {
   padding: 10px 20px;
   cursor: pointer;
   border-bottom: 1px solid #eee;
 }
+.select-dropdown__item.selected {
+  background-color: #e4e4e4;
+}
 .select-dropdown__item:hover {
   background-color: #eee;
 }
-.select.open .select-dropdown {
+.select.open .select-dropdown,
+.select.open .select-backdrop {
   display: block;
+}
+.select-backdrop {
+  position: fixed;
+  display: none;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 /*# sourceMappingURL=/selectjs.e31bb0bc.css.map */

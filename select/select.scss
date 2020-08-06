@@ -28,6 +28,8 @@ body {
         font-size: 16px;
         cursor: pointer;
         position: relative;
+        z-index: 2;
+        background-color: #fff;
 
         .fa {
             position: absolute;
@@ -43,16 +45,22 @@ body {
         overflow: hidden;
         overflow-y: scroll;
         position: absolute;
+        z-index: 2;
         top: 100%;
         width: 100%;
         border: 1px solid #ccc;
         border-radius: 0 0 12px 12px;
         box-shadow: 0 10px 30px 0 rgba(0,0,0,.2);
+        background-color: #fff;
 
         &__item {
             padding: 10px 20px;
             cursor: pointer;
             border-bottom: 1px solid #eee;
+            
+            &.selected {
+                background-color: #e4e4e4;
+            }
 
             &:hover {
                 background-color: #eee;
@@ -62,8 +70,19 @@ body {
     }
 
     &.open {
-        .select-dropdown {
+        .select-dropdown,
+        .select-backdrop {
             display: block;
         }
+    }
+
+    &-backdrop {
+        position: fixed;
+        display: none;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
     }
 }
